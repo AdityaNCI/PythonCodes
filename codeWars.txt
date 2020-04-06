@@ -1,0 +1,895 @@
+Dear Sir/ Mam, I am interested in this accomodation, i am a single guy studying MSc in Data Analytics in national college of Ireland. I am looking to lease for 1 year, please mail me if the place is available. We are ready to move in from end of month October. Thank you for your time. adityasharma1408@gmail.com +353 899645430
+Dear Sir/ Mam, 
+I am interested in this accomodation, We are 4 guys studying Masters in National College of Ireland. We are looking to lease for 1 year, please mail me if the place is available. We are ready to move in. We are very serious about studies and will keep the house clean, you can do monthly inspections too. Thank you for your time.  adityasharma1408@gmail.com 
++353 899645430
+Permament accomodation available for a single guy in 13, Pim Street, Dublin 8 from 31 October, can adjust for before 31 October also, rent: 500, deposit: 500. Its spacious, full furnished 2 Bedroom, 2 Bathroom apartment. You would have a separate single bed and almirah and parking space is also available for bicycles. Please contact me if interested(whatsapp or call): +353 899645430
+
+Dear Sir/ Mam, 
+I am interested in this accomodation, We are 2 guys studying Masters in National College of Ireland. We are looking to lease for 1 year, please mail me if the place is available. We are ready to move in. We are very serious about studies and will keep the house clean, you can do monthly inspections too. Thank you for your time.
+himanikaria97@gmail.com 
++353 894023539
+
+-------------
+Given: an array containing hashes of names
+
+Return: a string formatted as a list of names separated by commas except for the
+ last two names, which should be separated by an ampersand.
+
+Example:
+namelist([ {'name': 'Bart'}, {'name': 'Lisa'}, {'name': 'Maggie'} ])
+# returns 'Bart, Lisa & Maggie'
+
+namelist([ {'name': 'Bart'}, {'name': 'Lisa'} ])
+# returns 'Bart & Lisa'
+
+namelist([ {'name': 'Bart'} ])
+# returns 'Bart'
+
+namelist([])
+# returns ''
+
+def namelist(names):
+    li=names
+    di=[]
+    j=''
+    for i in li:
+        i=str(i)
+        i=i[10:]
+        i=i.replace("'}",'')
+        di.append(i)
+        #print(di)
+    s=''
+    if len(di)==1:
+        j=("'"+"".join(list(di))+"'")
+        return j
+    elif len(di)==2:
+        j=("'"+" & ".join(list(di))+"'")
+        return j
+    else:
+        s=di[len(di)-1]
+        di.pop(len(di)-1)
+        j=("'"+", ".join(list(di))+" & "+s+"'")
+        return j
+
+#j=namelist([ {'name': 'Bart'}, {'name': 'Lisa'}, {'name': 'Maggie'} ])
+#j=namelist([ {'name': 'Bart'}, {'name': 'Lisa'}])
+j=namelist([ {'name': 'Bart'}])
+print (j)
+
+
+
+-----------------------------------------------------------------
+Count the number of Duplicates
+Write a function that will return the count of distinct case-insensitive alphabetic characters and numeric digits that occur more than once in the input string. The input string can be assumed to contain only alphabets (both uppercase and lowercase) and numeric digits.
+
+Example
+"abcde" -> 0 # no characters repeats more than once
+"aabbcde" -> 2 # 'a' and 'b'
+"aabBcde" -> 2 # 'a' occurs twice and 'b' twice (`b` and `B`)
+"indivisibility" -> 1 # 'i' occurs six times
+"Indivisibilities" -> 2 # 'i' occurs seven times and 's' occurs twice
+"aA11" -> 2 # 'a' and '1'
+"ABBA" -> 2 # 'A' and 'B' each occur twice
+
+def duplicate_count(s):
+  return len([c for c in set(s.lower()) if s.lower().count(c)>1])
+
+def duplicate_count(text):
+    text=text.lower()
+    l=list(text)
+    l2=list(dict.fromkeys(text)) # remove duplicates
+    a=0
+    for i in l2:
+        if l.count(i)>1:
+            a+=1
+    return a        
+j=duplicate_count("Indivisibilities")
+print(j)
+
+-------------------------------------------------------------------------
+In a factory a printer prints labels for boxes. For one kind of boxes the printer has to use colors which, for the sake of simplicity, are named with letters from a to m.
+
+The colors used by the printer are recorded in a control string. For example a "good" control string would be aaabbbbhaijjjm meaning that the printer used three times color a, four times color b, one time color h then one time color a...
+
+Sometimes there are problems: lack of colors, technical malfunction and a "bad" control string is produced e.g. aaaxbbbbyyhwawiwjjjwwm with letters not from a to m.
+
+You have to write a function printer_error which given a string will output the error rate of the printer as a string representing a rational whose numerator is the number of errors and the denominator the length of the control string. Don't reduce this fraction to a simpler expression.
+
+The string has a length greater or equal to one and contains only letters from ato z.
+
+#Examples:
+
+s="aaabbbbhaijjjm"
+error_printer(s) => "0/14"
+
+s="aaaxbbbbyyhwawiwjjjwwm"
+error_printer(s) => "8/22"
+
+from re import sub
+def printer_error(s):
+    return "{}/{}".format(len(sub("[a-m]",'',s)),len(s))
+
+def printer_error(s):
+    test = list(map(chr, range(97, 110))) 
+    b=0
+    a=list(s)
+    length=len(a)
+    for i in a:
+        if i not in test:
+            b+=1
+    c=(str(b)+"/"+str(length))
+    return c        
+s="aaabbbbhaijjjm"
+printer_error(s)
+
+-------------------------------------------------------------------------------------
+
+Complete the method/function so that it converts dash/underscore delimited words into camel casing. The first word within the output should be capitalized only if the original word was capitalized (known as Upper Camel Case, also often referred to as Pascal case).
+
+Examples
+to_camel_case("the-stealth-warrior") # returns "theStealthWarrior"
+to_camel_case("The_Stealth_Warrior") # returns "TheStealthWarrior"
+
+def to_camel_case(s):
+    return s[0] + s.title().translate(None, "-_")[1:] if s else s
+
+def to_camel_case(text):
+    a=list(text)
+    for i in a:
+        if i=='-' or i=='_':
+            a[a.index(i)+1]=a[a.index(i)+1].upper()
+            a.remove(i)
+    print(''.join(list(a)))
+     
+to_camel_case("The_Stealth_Warrior")
+
+----------------------------------------------------------------------------------
+Create a function named divisors/Divisors that takes an integer n > 1 and returns an array with all of the integer's divisors(except for 1 and the number itself), from smallest to largest. If the number is prime return the string '(integer) is prime' (null in C#) (use Either String a in Haskell and Result<Vec<u32>, String> in Rust).
+
+Example:
+divisors(12); #should return [2,3,4,6]
+divisors(25); #should return [5]
+divisors(13); #should return "13 is prime"
+
+def divisors(num):
+    l = [a for a in range(2,num) if num%a == 0]
+    if len(l) == 0:
+        return str(num) + " is prime"
+    return l
+
+def divisors(integer):
+    a=[]
+    for i in range(2,integer-1):
+        if integer%i==0:
+            a.append(i)
+    if len(a)==0:
+        c=str(integer)+' is prime'
+        return c
+    else:
+        return a
+divisors(13)
+
+-------------------------------------------------------------------------------
+Implement a function that adds two numbers together and returns their sum in binary. The conversion can be done before, or after the addition.
+
+The binary number returned should be a string.
+
+def add_binary(a,b):
+    c=bin(a+b)[2:]
+    return c
+    #print(c)
+add_binary(1,1)
+
+---------------------------------------------------------------------------------
+Complete the findNextSquare method that finds the next integral perfect square after the one passed as a parameter. Recall that an integral perfect square is an integer n such that sqrt(n) is also an integer.
+
+If the parameter is itself not a perfect square, than -1 should be returned. You may assume the parameter is positive.
+
+Examples:
+
+findNextSquare(121) --> returns 144
+findNextSquare(625) --> returns 676
+findNextSquare(114) --> returns -1 since 114 is not a perfect
+
+def find_next_square(sq):
+    import math
+    i=(math.sqrt(sq))
+    if (i-int(i)) !=0:
+        return -1
+    else:
+        return int((i+1)*(i+1))
+    
+print(find_next_square(16))
+
+def find_next_square(sq):
+    root = sq ** 0.5
+    if root.is_integer():
+        return (root + 1)**2
+    return -1
+
+------------------------------------------------------------------------------------
+Create a function that takes a Roman numeral as its argument and returns its value as a numeric decimal integer. You don't need to validate the form of the Roman numeral.
+
+Modern Roman numerals are written by expressing each decimal digit of the number to be encoded separately, starting with the leftmost digit and skipping any 0s. So 1990 is rendered "MCMXC" (1000 = M, 900 = CM, 90 = XC) and 2008 is rendered "MMVIII" (2000 = MM, 8 = VIII). The Roman numeral for 1666, "MDCLXVI", uses each letter in descending order.
+
+Example:
+
+solution('XXI') # should return 21
+Help:
+
+Symbol    Value
+I          1
+V          5
+X          10
+L          50
+C          100
+D          500
+M          1,000
+
+def solution(roman):
+    dict = {
+        "M": 1000,
+        "D": 500,
+        "C": 100,
+        "L": 50,
+        "X": 10,
+        "V": 5,
+        "I": 1
+    }
+
+    last, total = 0, 0
+    for c in list(roman)[::-1]:
+        if last == 0:
+            total += dict[c]
+        elif last > dict[c]:
+            total -= dict[c]
+        else:
+            total += dict[c]
+        last = dict[c]
+    return total
+
+
+def solution(roman):
+    a=list(roman)
+    year=0
+    for i in a:
+        if i=='M':
+            year+=1000
+        elif i=='D':
+            year+=500
+        elif i=='C' and a.index(i) != (len(a)-1):
+            if a[a.index(i)+1]=='M':
+                year+=900
+                a.pop(a.index(i)+1)
+            elif a[a.index(i)+1]=='D':
+                year+=400
+                a.pop(a.index(i)+1)
+            else:    
+                year+=100  
+        elif i=='C':
+            year+=100  
+        elif i=='L':
+            year+=50    
+        elif i=='X' and a.index(i) != (len(a)-1):
+            if a[a.index(i)+1]=='C': 
+                year+=90
+                a.pop(a.index(i)+1)
+            elif a[a.index(i)+1]=='L':
+                year+=40
+                a.pop(a.index(i)+1)
+            else:    
+                year+=10  
+        elif i=='X':
+            year+=10                
+        elif i=='V':
+            year+=5  
+        elif i=='I' and len(a)!=1 and a.index(i) != (len(a)-1):
+            if a[a.index(i)+1]=='X':
+                year+=9
+                a.pop(a.index(i)+1)
+            elif a[a.index(i)+1]=='V':
+                year+=4
+                a.pop(a.index(i)+1)
+            else:
+                year+=1
+        elif i=='I':
+            year+=1
+        
+    return year        
+print(solution('MMMCDLXXVI')) # 4
+
+---------------------------------------------------------------------------------
+Write a function that takes an integer as input, and returns the number of bits that are equal to one in the binary representation of that number. You can guarantee that input is non-negative.
+
+Example: The binary representation of 1234 is 10011010010, so the function should return 5 in this case
+
+def countBits(n):
+    return bin(n).count("1")
+
+def countBits(n):
+    a=list(bin(n)[2:])
+    b=a.count('1')
+    return b
+
+------------------------------------------------------------------------------------------
+Create a function that takes a string and returns the string ciphered with Rot13. If there are numbers or special characters included in the string, they should be returned as they are. Only letters from the latin/english alphabet should be shifted, like in the original Rot13 "implementation".
+
+import string
+from codecs import encode as _dont_use_this_
+from string import maketrans, lowercase, uppercase
+def rot13(message):
+    lower = maketrans(lowercase, lowercase[13:] + lowercase[:13])
+    upper = maketrans(uppercase, uppercase[13:] + uppercase[:13])
+    return message.translate(lower).translate(upper)
+
+import string
+def rot13(message):
+    return message.encode("rot13")
+
+def rot13(message):
+    li=list(message)
+    a=[]
+    small=list(map(chr, range(97,123))) 
+    big=list(map(chr, range(65,91))) 
+    for i in li:
+        if i in small and small.index(i)<13:
+            a.append(small[small.index(i)+13])
+        elif i in small and small.index(i)>=13:
+            a.append(small[small.index(i)-13])
+        elif i in big and big.index(i)<13:
+            a.append(big[big.index(i)+13])
+        elif i in big and big.index(i)>=13:
+            a.append(big[big.index(i)-13])
+        else:
+            a.append(i)
+    return (''.join(a)) 
+
+---------------------------------------------------------------------------------------
+
+Test.assert_equals(tribonacci([1, 1, 1], 10), [1, 1, 1, 3, 5, 9, 17, 31, 57, 105])
+Test.assert_equals(tribonacci([0, 0, 1], 10), [0, 0, 1, 1, 2, 4, 7, 13, 24, 44])
+Test.assert_equals(tribonacci([0, 1, 1], 10), [0, 1, 1, 2, 4, 7, 13, 24, 44, 81])
+Test.assert_equals(tribonacci([1, 0, 0], 10), [1, 0, 0, 1, 1, 2, 4, 7, 13, 24])
+
+def tribonacci(signature, n):
+  res = signature[:n]
+  for i in range(n - 3): res.append(sum(res[-3:]))
+  return res
+print(tribonacci([1, 1, 1], 10))
+
+def tribonacci(signature, n):
+    a=[]
+    n1=signature[0]
+    n2=signature[1]
+    n3=signature[2]
+    a.append(n1)
+    a.append(n2)
+    a.append(n3)
+    if n<=3:
+        if n==0:
+            a.pop(1)
+            a.pop(1)
+            a.pop(0)
+            return a
+        elif n==1:
+            a.pop(1)
+            a.pop(1)
+            return a
+        elif n==2:
+            a.pop(2)
+            return a
+        else: return a
+    else:
+        for i in range(3,n):
+            a.append(n1+n2+n3)
+            n3=n1+n2+n3
+            n2=n3-(n1+n2)
+            n1=n3-(n1+n2)
+        
+    return a
+print(tribonacci([1, 1, 1], 1))
+
+--------------------------------------------------------------------------------
+def first_non_repeating_letter(string):
+    b=list(string)
+    if string =='':
+        return ''
+    else:
+        string=string.lower()
+        a=list(string)
+        c=0
+        for i in a:
+            if a.count(i)==1:
+                return b[c]
+                break
+            else: c+=1
+        return ''
+first_non_repeating_letter('sTreSS')
+
+def first_non_repeating_letter(string):
+    string_lower = string.lower()
+    for i, letter in enumerate(string_lower):
+        if string_lower.count(letter) == 1:
+            return string[i]
+            
+    return ""
+
+--------------------------------------------------
+def next_bigger(n):
+    from itertools import permutations
+    a=list(str(n))
+    b=[]
+    c=[]
+    for i in a: b.append(int(i))
+    if len(a)==1: return -1
+    elif sorted(b,reverse=True)==b: return -1
+    else:
+        for i in range(n,n*10):
+            if i > n and sorted(list(str(i)))==sorted(list(str(n))):
+                return i
+                break
+next_bigger(123456789)
+
+
+
+--------------------------------------------------
+
+
+def rot13(message):
+  return message.encode('rot13')
+
+def rot13(message):
+    def decode(c):
+        if 'a' <= c <= 'z':
+            base = 'a'
+        elif 'A' <= c <= 'Z':
+            base = 'A'
+        else:
+            return c
+        return chr((ord(c) - ord(base) + 13) % 26 + ord(base))
+    return "".join(decode(c) for c in message)
+
+def rot13(message):
+    b=[]
+    message1=message
+    message=list(message)
+    for i in message1:
+        if ord(i) in range(97,123) or ord(i) in range(65,91):
+            if ord(i) in range(97,110) or ord(i) in range(65,78):
+                b.append(chr(ord(i)+13))
+            else: b.append(chr(ord(i)-13))
+        else: b.append(i)
+    
+    c=''.join(b)
+    return c
+
+
+
+--------------------------------------------------
+ Three 1's => 1000 points
+ Three 6's =>  600 points
+ Three 5's =>  500 points
+ Three 4's =>  400 points
+ Three 3's =>  300 points
+ Three 2's =>  200 points
+ One   1   =>  100 points
+ One   5   =>   50 point
+
+Throw       Score
+ ---------   ------------------
+ 5 1 3 4 1   50 + 2 * 100 = 250
+ 1 1 1 3 1   1000 + 100 = 1100
+ 2 4 4 5 4   400 + 50 = 450
+
+def score(dice): 
+  sum = 0
+  counter = [0,0,0,0,0,0]
+  points = [1000, 200, 300, 400, 500, 600]
+  extra = [100,0,0,0,50,0]
+  for die in dice: 
+    counter[die-1] += 1
+  
+  for (i, count) in enumerate(counter):
+    sum += (points[i] if count >= 3 else 0) + extra[i] * (count%3)
+
+  return sum 
+
+def score(dice):
+    b=[]
+    total=0
+    flag=0
+    for i in dice:
+        if dice.count(i)>=3:
+            if i not in b:
+                flag=1
+                b.append(i)
+        if i == 1:
+             total = total + 100
+        elif i==5:
+            total = total+50
+    
+    for i in b:
+        if i == 1:
+            total = total + 700 #1000
+        elif i == 5:
+            total = total + 350 #500
+        else: total = total + (i*100)
+    return total
+
+
+
+
+--------------------------------------------------
+Test.assert_equals(anagrams('abba', ['aabb', 'abcd', 'bbaa', 'dada']), ['aabb', 'bbaa'])
+Test.assert_equals(anagrams('racer', ['crazer', 'carer', 'racar', 'caers', 'racer']), ['carer', 'racer'])
+
+def anagrams(word, words): return [item for item in words if sorted(item)==sorted(word)]
+
+def anagrams(word, words):
+    a=list(word)
+    c=[]
+    for i in words:
+        if len(word)==len(i):
+            b=list(i)
+            flag=0
+            a.sort()
+            b.sort()
+            for j in range(len(a)):
+                if a[j]!=b[j]:
+                    flag=1
+            if flag==0:
+                c.append(i)
+    return c
+   
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+
+--------------------------------------------------
+
+
+
+

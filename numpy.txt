@@ -1,0 +1,1318 @@
+NumPy is the fundamental package for scientific computing with Python. It contains among other things:
+a powerful N-dimensional array object
+sophisticated (broadcasting) functions
+tools for integrating C/C++ and Fortran code
+useful linear algebra, Fourier transform, and random number capabilities
+Besides its obvious scientific uses, NumPy can also be used as an efficient multi-dimensional 
+container of generic data. Arbitrary data-types can be defined. This allows NumPy to 
+seamlessly and speedily integrate with a wide variety of databases.
+
+import numpy as np # numpy version
+print(np.__version__)
+
+------Create a 1D array of numbers from 0 to 9
+print(np.arange(10)) 
+
+------Create a 3×3 numpy array of all True’s
+print(np.full((3,3), True, dtype=bool))
+#print(np.ones((3,3), dtype=bool))
+#print(np.zeros((3,3),dtype=bool))
+
+------print all odd
+arr=np.arange(10)
+print(arr[arr%2==1])
+
+------Replace all odd numbers in arr with -1
+arr=np.arange(10)
+arr[arr%2==1]=-1
+print(arr)
+
+output:
+[ 0 -1  2 -1  4 -1  6 -1  8 -1]
+
+------Replace all odd numbers in arr with -1 without changing arr, use of where
+arr=np.arange(10)
+arr1=np.where(arr%2==1,-1,arr)
+print(arr1)
+
+output:
+[ 0 -1  2 -1  4 -1  6 -1  8 -1]
+
+------Convert a 1D array to a 2D array with 2 rows
+arr=np.arange(10)
+arr=arr.reshape(2,-1)  # Setting to -1 automatically decides the number of cols
+print(arr)
+
+output:
+[[0 1 2 3 4]
+ [5 6 7 8 9]]
+
+------Stack arrays vertically
+arr=np.arange(10).reshape(2,-1)
+arr1=np.repeat(1,10).reshape(2,-1)
+print(np.concatenate([arr,arr1],axis=0))
+#print(np.vstack([arr,arr1]))
+#print(np.r_[arr,arr1])
+
+output:
+[[0 1 2 3 4]
+ [5 6 7 8 9]
+ [1 1 1 1 1]
+ [1 1 1 1 1]]
+
+------Stack the arrays horizontally.
+arr=np.arange(10).reshape(2,-1)
+arr1=np.repeat(1,10).reshape(2,-1)
+print(np.c_[arr,arr1])
+#print(np.hstack([arr,arr1]))
+#print(np.concatenate([arr,arr1],axis=1))
+
+output:
+[[0 1 2 3 4 1 1 1 1 1]
+ [5 6 7 8 9 1 1 1 1 1]]
+
+------ create pattern ([1, 1, 1, 2, 2, 2, 3, 3, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3])
+arr=np.arange(1,4)
+arr=np.r_[np.repeat(arr,3),np.tile(arr,3)] #np.tile gives [1 2 3 1 2 3 1 2 3]
+print(arr)
+
+output:
+[1 1 1 2 2 2 3 3 3 1 2 3 1 2 3 1 2 3]
+
+------common items between a and b
+a = np.array([1,2,3,2,3,4,3,4,5,6])
+b = np.array([7,2,10,2,7,4,9,4,9,8])
+print(np.intersect1d(a,b))
+
+output:
+[2 4]
+
+------From 'a' remove all of 'b'
+a = np.array([1,2,3,4,5])
+b = np.array([5,6,7,8,9])
+print(np.setdiff1d(a,b))
+
+output:
+[1 2 3 4]
+
+------Get the positions where elements of a and b match
+a = np.array([1,2,3,2,3,4,3,4,5,6])
+b = np.array([7,2,3,2,7,4,9,4,9,8])
+print(np.where(a==b))
+
+output:
+(array([1, 2, 3, 5, 7], dtype=int64),)
+
+------Get all items between 5 and 10 from a.
+a = np.arange(15)
+print(np.where((a>=5)&(a<=10)))
+print(np.where(np.logical_and(a>=5,a<=10)))
+print(a[(a>=5)&(a<=10)])
+
+output:
+(array([ 5,  6,  7,  8,  9, 10], dtype=int64),)
+(array([ 5,  6,  7,  8,  9, 10], dtype=int64),)
+[ 5  6  7  8  9 10]
+
+------Convert the function maxx that works on two scalars, to work on two arrays
+def maxx(x, y):
+    if x >= y:return x
+    else:return y
+pair_max=np.vectorize(maxx,otypes=[int])
+a = np.array([5, 7, 9, 8, 6, 4, 5])
+b = np.array([6, 3, 4, 8, 9, 7, 1])
+print(pair_max(a,b))
+
+output:
+[6 7 9 8 9 7 5]
+
+------swap two columns in a 2d numpy array
+arr=np.arange(9).reshape(3,3)
+print(arr)
+print(arr[:,[1,0,2]])
+
+output:
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+[[1 0 2]
+ [4 3 5]
+ [7 6 8]]
+
+------swap two rows in a 2d numpy array
+arr=np.arange(9).reshape(3,3)
+print(arr)
+print(arr[[1,0,2],:])
+
+output:
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+[[3 4 5]
+ [0 1 2]
+ [6 7 8]]
+
+------reverse the rows of a 2D array
+arr=np.arange(9).reshape(3,3)
+print(arr)
+print(arr[::-1])
+
+output:
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+[[6 7 8]
+ [3 4 5]
+ [0 1 2]]
+
+------reverse the columns of a 2D array
+arr=np.arange(9).reshape(3,3)
+print(arr)
+print(arr[:,::-1])
+
+output:
+[[0 1 2]
+ [3 4 5]
+ [6 7 8]]
+[[2 1 0]
+ [5 4 3]
+ [8 7 6]]
+
+------create a 2D array containing random floats between 5 and 10
+print(np.random.uniform(5,10,size=(5,3)))
+print(np.random.randint(low=5,high=10,size=(5,3))) # random int
+print(np.random.random(5)) # random array 1d
+print(np.random.random([5,3])) # random array 5x3
+
+output:
+[[6.41354068 9.7989007  7.63054199]
+ [8.0629308  9.53155857 5.15346963]
+ [6.37743885 9.01121658 6.61948019]
+ [5.99189707 5.04561905 8.09822165]
+ [6.01050221 9.85865993 9.1749945 ]]
+[[9 8 6]
+ [5 7 7]
+ [7 6 6]
+ [8 9 7]
+ [7 9 6]]
+[0.61205772 0.19157886 0.63690693 0.16737058 0.32530102]
+[[0.20897993 0.32026142 0.56296664]
+ [0.63472539 0.58894104 0.58015375]
+ [0.93092962 0.2522512  0.78370578]
+ [0.1603914  0.1203417  0.09860761]
+ [0.7343177  0.15172659 0.93802539]]
+
+------print only 3 rows of 5x3
+arr=np.random.random([5,3])
+print(arr)
+print(arr[:3])
+
+output:
+[[0.4698071  0.84942452 0.7494555 ]
+ [0.28188507 0.70838656 0.12380209]
+ [0.42399826 0.47324395 0.67597033]
+ [0.1504345  0.38452626 0.5779259 ]
+ [0.06366401 0.21618555 0.98467302]]
+[[0.4698071  0.84942452 0.7494555 ]
+ [0.28188507 0.70838656 0.12380209]
+ [0.42399826 0.47324395 0.67597033]]
+
+------scientific notation
+np.random.seed(2) #same result from random in every run, any number in bracket
+np.set_printoptions(suppress=True,precision=6) #to avoid e to the power notation
+#precision means to print only till the value provided
+arr=np.random.random([3,3])/1e4 # /1e4 means divide by 10000
+print(arr)
+
+output:
+[[0.000044 0.000003 0.000055]
+ [0.000044 0.000042 0.000033]
+ [0.00002  0.000062 0.00003 ]]
+
+------print like this [ 0  1  2 ... 12 13 14]
+arr=np.arange(15)
+np.set_printoptions(threshold=6) # [ 0  1  2 ... 12 13 14]
+print(arr)
+
+output:
+[ 0  1  2 ... 12 13 14]
+
+------import from net and print first 3 rows
+import numpy as np 
+url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
+iris = np.genfromtxt(url, delimiter=',', dtype='object')
+print(iris[:3])
+
+output:
+[[b'5.1' b'3.5' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.9' b'3.0' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.7' b'3.2' b'1.3' b'0.2' b'Iris-setosa']]
+
+------import from current working directory
+iris = np.genfromtxt('iris.csv', delimiter=',',dtype='object') # object to print values other than numbers
+print(iris[:3])
+
+output:
+[[b'5.1' b'3.5' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.9' b'3' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.7' b'3.2' b'1.3' b'0.2' b'Iris-setosa']]
+
+------import from somewhere other than current working directory
+iris = np.genfromtxt('D:\\Downloads\\iris.csv', delimiter=',',dtype='object')
+print(iris[:3]) # print only first 3 rows
+print(np.array([row[4] for row in iris])) # print 5th column only
+iris1=np.array([row.tolist()[:5] for row in iris]) # convert from 1d to 2d array
+# to directly import from csv to an array of 2d
+iris1= np.genfromtxt('D:\\Downloads\\iris.csv', delimiter=',',dtype='object',usecols=[0,1,2,3,4])
+
+output:
+[[b'5.1' b'3.5' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.9' b'3' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.7' b'3.2' b'1.3' b'0.2' b'Iris-setosa']]
+[b'Iris-setosa' b'Iris-setosa' b'Iris-setosa' ... b'Iris-virginica'
+ b'Iris-virginica' b'Iris-virginica']
+
+from scipy import stats
+add='D:\\Downloads\\iris.csv'
+sepallength=np.genfromtxt(add,delimiter=',',dtype='float',usecols=[0]) # get column 1
+print(np.mean(sepallength)) #mean
+print(np.median(sepallength)) # median
+print(np.std(sepallength)) # standard deviation
+print(stats.mode(sepallength)) # from scipy import stats
+
+output:
+5.843333333333334
+5.8
+0.8253012917851409
+ModeResult(mode=array([5.]), count=array([10]))
+
+#a normalized form of iris's sepallength whose values range exactly 
+#between 0 and 1 so that the minimum has value 0 and maximum has value 1.
+smax,smin=sepallength.max(),sepallength.min()
+s=(sepallength-smin)/(smax-smin)
+print(s)
+
+output:
+0.222222 0.166667 0.111111 0.083333 0.194444 0.305556 0.083333 0.194444
+ 0.027778 0.166667 0.305556 0.138889 0.138889 0.       0.416667 0.388889
+ 0.305556 0.222222..................so on
+
+#softmax function, https://stackoverflow.com/questions/34968722/how-to-implement-the-softmax-function-in-python
+e_x=np.exp(sepallength-np.max(sepallength))
+print(e_x/e_x.sum(axis=0))
+
+output:
+0.00222  0.001817 0.001488 0.001346 0.002008 0.002996 0.001346 0.002008.....so on
+
+print(np.percentile(sepallength,q=[5,95])) # 5th and 95th percentile 
+
+output:
+[4.6   7.255]
+
+------#Insert np.nan values at 20 random positions in iris dataset
+iris = np.genfromtxt(add, delimiter=',',dtype='object')
+i,j=np.where(iris)
+np.random.seed(1) # to fix the random values
+iris[np.random.choice((i),20),np.random.choice((j),20)]=np.nan
+#iris[np.random.randint(150, size=20), np.random.randint(4, size=20)] = np.nan
+print(iris)
+
+output:
+[[b'5.1' b'3.5' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.9' b'3' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.7' b'3.2' b'1.3' b'0.2' b'Iris-setosa']
+ [b'4.6' b'3.1' b'1.5' nan b'Iris-setosa']
+ [b'5' b'3.6' b'1.4' b'0.2' b'Iris-setosa']
+ [b'5.4' nan b'1.7' b'0.4' b'Iris-setosa']
+
+------number and position of nan(not a number) in iris_2d
+add='D:\\Downloads\\iris.csv'
+iris_2d = np.genfromtxt(add, delimiter=',', dtype='float', usecols=[0,1,2,3])
+iris_2d[np.random.randint(150, size=20), np.random.randint(4, size=20)] = np.nan
+print("Number of missing values: \n", np.isnan(iris_2d[:, 0]).sum())
+print("Position of missing values: \n", np.where(np.isnan(iris_2d[:, 0])))
+
+output:
+Number of missing values: 
+ 8
+Position of missing values: 
+ (array([  2,   6,  10,  25,  74,  77, 128, 143], dtype=int64),)
+
+------rows of iris having petallength (3rd column) > 1.5 and sepallength (1st column) < 5.0
+add='D:\\Downloads\\iris.csv'
+iris = np.genfromtxt(add, delimiter=',', dtype='float', usecols=[0,1,2,3])
+condition=(iris[:, 2]>1.5)&(iris[:,0]<5.0)
+print(iris[condition])
+
+output:
+[[4.8 3.4 1.6 0.2]
+ [4.8 3.4 1.9 0.2]
+ [4.7 3.2 1.6 0.2]
+ [4.8 3.1 1.6 0.2]
+ [4.9 2.4 3.3 1. ]
+ [4.9 2.5 4.5 1.7]]
+
+------rows of iris that does not have any nan value
+add='D:\\Downloads\\iris.csv'
+names = ('sepallength', 'sepalwidth', 'petallength', 'petalwidth', 'species')
+np.random.seed(1)
+iris = np.genfromtxt(add, delimiter=',',dtype='float',usecols=[0,1,2,3])
+iris[np.random.randint(150,size=20),np.random.randint(4,size=20)]=np.nan
+any_nan_row=np.array([~np.any(np.isnan(row)) for row in iris])
+#print(iris)
+print(iris[any_nan_row])
+
+output:
+[[5.1 3.5 1.4 0.2]
+ [4.9 3.  1.4 0.2]
+ [4.7 3.2 1.3 0.2]
+ [4.6 3.1 1.5 0.2]
+ [5.  3.6 1.4 0.2]...so on
+
+------correlation between SepalLength(1st column) and PetalLength(3rd column) in iris
+print(np.corrcoef(iris[:,0],iris[:,2]))
+
+output:
+[[1.       0.871754]
+ [0.871754 1.      ]]
+
+------Find out if iris has any missing and nan values.
+print(np.isnan(iris).any())
+
+output:
+False
+
+------Replace all ccurrences of nan with 0 in numpy array
+iris[np.isnan(iris)]=0
+
+output:
+[[5.1 3.5 1.4 0.2]
+ [4.9 3.  1.4 0.2]
+ [4.7 3.2 1.3 0.2]
+ [4.6 3.1 1.5 0.2]
+ [5.  3.6 1.4 0.2]
+ [5.4 3.9 1.7 0.4]....so on
+
+------Find the unique values and the count of unique values in iris's species
+add='D:\\Downloads\\iris.csv'
+names = ('sepallength', 'sepalwidth', 'petallength', 'petalwidth', 'species')
+iris = np.genfromtxt(add, delimiter=',',dtype='object')
+species=np.array([row.tolist()[4] for row in iris])
+print(np.unique(species,return_counts=True))
+
+output:
+(array([b'Iris-setosa', b'Iris-versicolor', b'Iris-virginica'],
+      dtype='|S15'), array([50, 50, 50], dtype=int64))
+
+------Bin the petal length (3rd) column of iris_2d to form a text array, such that if petal length is:
+Less than 3 --> 'small';3-5 --> 'medium';'>=5 --> 'large'
+add='D:\\Downloads\\iris.csv'
+iris = np.genfromtxt(add, delimiter=',',dtype='object')
+names = ('sepallength', 'sepalwidth', 'petallength', 'petalwidth', 'species')
+petal_length_bin=np.digitize(iris[:,2].astype('float'),[0,3,5,10])
+label_map={1:'small',2:'medium',3:'large',4:np.nan}
+petal_length_cat=[label_map[x] for x in petal_length_bin]
+print(petal_length_cat)
+
+output:
+['small', 'small', 'small', 'small'....so on
+
+------add new column
+iris = np.genfromtxt(add, delimiter=',',dtype='object')
+sepallength = iris[:, 0].astype('float')
+petallength = iris[:, 2].astype('float')
+volume = (np.pi * petallength * (sepallength**2))/3
+volume = volume[:, np.newaxis]# Introduce new dimension to match iris_2d's
+out = np.hstack([iris, volume])# Add the new column
+out[:4]
+
+output:
+array([[b'5.1', b'3.5', b'1.4', b'0.2', b'Iris-setosa',
+        38.13265162927291],.....so on
+
+------do 42
+
+
+output:
+
+
+------second longest petallength of species setosa
+add='D:\\Downloads\\iris.csv'
+iris=np.genfromtxt(add,delimiter=',',dtype='object')
+petal_setosa=iris[iris[:,4]==b'Iris-setosa',[2]].astype('float') #getting all petalLength values of Iris-setosa
+np.unique(np.sort(petal_setosa))[-2]
+
+output:
+1.7
+
+------Sort the iris dataset based on sepallength column
+add='D:\\Downloads\\iris.csv'
+iris=np.genfromtxt(add,delimiter=',',dtype='object')
+#print(iris[iris[:,0].argsort()[::-1][:20]]) #descending order
+print(iris[iris[:,0].argsort()][:20]) #default ascending order
+
+output:
+[[b'4.3' b'3' b'1.1' b'0.1' b'Iris-setosa']
+ [b'4.4' b'3.2' b'1.3' b'0.2' b'Iris-setosa']
+ [b'4.4' b'3' b'1.3' b'0.2' b'Iris-setosa']
+ [b'4.4' b'2.9' b'1.4' b'0.2' b'Iris-setosa']
+ [b'4.5' b'2.3' b'1.3' b'0.3' b'Iris-setosa']....so on
+
+------most frequent value of petal length (3rd column) in iris dataset
+add='D:\\Downloads\\iris.csv'
+iris=np.genfromtxt(add,delimiter=',',dtype='object')
+vals,counts=np.unique(iris[:,2],return_counts=True)
+print(vals[np.argmax(counts)])
+
+output:
+b'1.5'
+
+------position of the first occurrence of a value greater than 1.0 in petalwidth 4th column of iris
+add='D:\\Downloads\\iris.csv'
+iris=np.genfromtxt(add,delimiter=',',dtype='object')
+print(np.argwhere(iris[:,3].astype(float)>1.0)[0])
+
+output:
+[50]
+
+------replace all values greater than 30 to 30 and less than 10 to 10.
+add='D:\\Downloads\\iris.csv'
+np.random.seed(1)
+a=np.random.uniform(1,50,20)# any value within the given interval is equally likely to be drawn by uniform.
+#print(np.clip(a,a_min=10,a_max=30)) #solution1
+print(a)
+print(np.where(a<10,10,np.where(a>30,30,a))) #solution2
+
+output:
+[21.434078 36.2959    1.005604 15.814296  8.191039  5.524591 10.12675
+ 17.932476 20.441606 27.40202  21.540531 34.575756 11.01816  44.027754
+  2.341992 33.852908 21.447935 28.375802  7.87896  10.706973]
+[21.434078 30.       10.       15.814296 10.       10.       10.12675
+ 17.932476 20.441606 27.40202  21.540531 30.       11.01816  30.
+ 10.       30.       21.447935 28.375802 10.       10.706973]
+
+------get the positions of top n values from a numpy array
+np.random.seed(1)
+a=np.random.uniform(1,50,20)
+print(a)
+#print(a[a.argsort()[::-1][:5]])#solution1
+#print(a[a.argsort()][-5:])#solution2
+#print(np.sort(a)[-5:]) #solution3
+#print(np.partition(a,kth=-5)[-5:])#solution4
+print(a[np.argpartition(-a,5)][:5])#solution5
+
+output:
+[21.434078 36.2959    1.005604 15.814296  8.191039  5.524591 10.12675
+ 17.932476 20.441606 27.40202  21.540531 34.575756 11.01816  44.027754
+  2.341992 33.852908 21.447935 28.375802  7.87896  10.706973]
+[36.2959   44.027754 34.575756 33.852908 28.375802]
+
+------doubts in 49
+
+
+output:
+
+
+------convert an array of arrays into a flat 1d array
+arr1=np.arange(3)
+arr2=np.arange(3,7)
+arr3=np.arange(7,10)
+all=np.array([arr1,arr2,arr3])
+print(all)
+#print(np.array([a for arr in all for a in arr]))#solution1
+print(np.concatenate(all))
+
+output:
+[array([0, 1, 2]) array([3, 4, 5, 6]) array([7, 8, 9])]
+[0 1 2 3 4 5 6 7 8 9]
+
+------binary variables for each unique value in the array
+np.random.seed(1)
+arr=np.random.randint(1,4,size=6)
+uniq=np.unique(arr) #get unique values of array
+print((arr[:,None]==np.unique(arr)).view(np.int8))
+
+output:
+[2 1 1 2 2 1]
+[[0 1]
+ [1 0]
+ [1 0]
+ [0 1]
+ [0 1]
+ [1 0]]
+
+------row numbers grouped by a categorical variable:
+setosa,setosa,setosa,versicolor,versicolor -->0,1,2,0,1
+
+add='D:\\Downloads\\iris.csv'
+species=np.genfromtxt(add,delimiter=',',dtype='str',usecols=4)
+species2=np.sort(np.random.choice(species,size=20))
+print(species2)
+print([i for val in np.unique(species2) for i,grp in enumerate
+      (species2[species2==val])])
+
+output:
+['Iris-setosa' 'Iris-setosa' 'Iris-setosa' 'Iris-setosa' 'Iris-versicolor'
+ 'Iris-versicolor' 'Iris-versicolor' 'Iris-versicolor' 'Iris-versicolor'
+ 'Iris-versicolor' 'Iris-versicolor' 'Iris-virginica' 'Iris-virginica'
+ 'Iris-virginica' 'Iris-virginica' 'Iris-virginica' 'Iris-virginica'
+ 'Iris-virginica' 'Iris-virginica' 'Iris-virginica']
+[0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+
+------create groud ids based on a given categorical variable
+setosa,setosa,setosa,versicolor,versicolor -->0,0,0,1,1
+add='D:\\Downloads\\iris.csv'
+species=np.genfromtxt(add,delimiter=',',dtype='str',usecols=4)
+species2=np.sort(np.random.choice(species,size=20))
+print(species2)
+output=[]
+uniqs=np.unique(species2)
+for val in uniqs:
+    for s in species2[species2==val]:
+        groupid=np.argwhere(uniqs==s).tolist()[0][0]
+        output.append(groupid)
+print(output)
+
+output:
+['Iris-setosa' 'Iris-setosa' 'Iris-setosa' 'Iris-setosa' 'Iris-setosa'
+ 'Iris-setosa' 'Iris-setosa' 'Iris-setosa' 'Iris-versicolor'
+ 'Iris-versicolor' 'Iris-versicolor' 'Iris-versicolor' 'Iris-versicolor'
+ 'Iris-versicolor' 'Iris-virginica' 'Iris-virginica' 'Iris-virginica'
+ 'Iris-virginica' 'Iris-virginica' 'Iris-virginica']
+[0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2]
+
+------ranks for the given numeric array a
+np.random.seed(10)
+a=np.random.randint(20,size=10)
+print(a)
+print(a.argsort().argsort()) #rank of each element
+
+output:
+[ 9  4 15  0 17 16 17  8  9  0]
+[4 2 6 0 8 7 9 3 5 1]
+
+------rank items in a multidimensional array using numpy
+import numpy as np
+np.random.seed(2)
+a=np.random.randint(20,size=[2,5])
+print(a)
+print(a.ravel()) #converts nxn array into 1-d
+print(a.ravel().argsort().argsort().reshape(a.shape))
+
+output:
+[[ 8 15 13  8 11]
+ [18 11  8  7  2]]
+[ 8 15 13  8 11 18 11  8  7  2]
+[[2 8 7 3 5]
+ [9 6 4 1 0]]
+
+------find the maximum value in each row of a numpy array 2d
+import numpy as np
+np.random.seed(2)
+a=np.random.randint(20,size=[5,3])
+print(a)
+print(np.max(a,axis=1))
+#print(np.apply_along_axis(np.max,arr=a,axis=1)) #this also does same
+
+output:
+[[ 8 15 13]
+ [ 8 11 18]
+ [11  8  7]
+ [ 2 17 11]
+ [15  5  7]]
+[15 18 11 17 15]
+
+------compute the min-by-max for each row for a numpy array 2d
+import numpy as np
+np.random.seed(2)
+a=np.random.randint(20,size=[5,3])
+print(a)
+print(np.apply_along_axis(lambda x:np.min(x)/np.max(x),arr=a,axis=1))
+
+output:
+[[ 8 15 13]
+ [ 8 11 18]
+ [11  8  7]
+ [ 2 17 11]
+ [15  5  7]]
+[0.53333333 0.44444444 0.63636364 0.11764706 0.33333333]
+
+------find the duplicate records in a numpy array
+
+
+output:
+
+
+------find the grouped mean in numpy
+import numpy as np
+add='D:\\Downloads\\iris.csv'
+iris=np.genfromtxt(add,delimiter=',',dtype='object')
+print(iris[:5])
+numeric_column=iris[:,1].astype('float') #sepalwidth
+grouping_column=iris[:,4] #species
+#method1
+output=[]
+for group_val in np.unique(grouping_column):
+    output.append([group_val,numeric_column[grouping_column==group_val].mean()])
+print(output)
+#method2:
+#print([[group_val,numeric_column[grouping_column==group_val].mean()] for group_val in np.unique(grouping_column)])
+
+output:
+[[b'Iris-setosa', 3.418], [b'Iris-versicolor', 2.7700000000000005], [b'Iris-virginica', 2.974]]
+
+------do 60
+
+
+output:
+
+
+------drop all missing values from a numpy array
+a=np.array([1,2,3,4,np.nan,5,np.nan])
+print(a)
+print(a[~np.isnan(a)])
+
+output:
+[ 1.  2.  3.  4. nan  5. nan]
+[1. 2. 3. 4. 5.]
+
+------euclidean distance between two arrays
+a=np.arange(1,6)
+b=np.arange(4,9)
+print(a,b)
+print(np.linalg.norm(a-b))
+
+output:
+[1 2 3 4 5] [4 5 6 7 8]
+6.708203932499369
+
+------local maxima
+a=np.array([1, 3, 7, 1, 2, 6, 0, 1])
+#The sign function returns -1 if x < 0, 0 if x==0, 1 if x > 0. nan is returned for nan inputs.
+doublediff = np.diff(np.sign(np.diff(a)))
+peak_locations = np.where(doublediff == -2)[0] + 1
+peak_locations
+
+output:
+array([2, 5], dtype=int64) # 2,5 are the positions of local maxima  7,6
+
+------subtract a 1d array from a 2d array, where each item of 1d array subtracts from respective row
+a_2d = np.array([[3,3,3],[4,4,4],[5,5,5]])
+b_1d = np.array([1,2,3])
+print(a_2d-b_1d[:,None])
+
+output:
+[[2 2 2]
+ [2 2 2]
+ [2 2 2]]
+
+------index of 5th repetition of number 1 in x
+x = np.array([1, 2, 1, 1, 3, 4, 3, 1, 1, 2, 1, 1, 2])
+n = 5
+#Enumerate() method adds a counter to an iterable and returns it in a form of enumerate 
+#object. This enumerate object can then be used directly in for loops or be converted 
+#into a list of tuples using list() method.
+print([i for i,v in enumerate(x) if v==1][n-1])
+print(np.where(x==1)[0][n-1])
+
+output:
+8
+8
+
+------convert numpy's datetime64 object to datetime's datetime object
+dt64=np.datetime64('2018-02-25 22:10:10')
+print(dt64)
+print(dt64.astype(dt.datetime))
+
+output:
+2018-02-25T22:10:10
+2018-02-25 22:10:10
+
+------do 67 moving average
+
+
+output:
+
+
+------Create a numpy array of length 10, starting from 5 and has a step of 3 between consecutive numbers
+length=10
+start=5
+step=3
+print(np.arange(start,start+(length*step),step))
+
+output:
+[ 5  8 11 14 17 20 23 26 29 32]
+
+------filling in the missing dates
+dates = np.arange(np.datetime64('2018-02-01'), np.datetime64('2018-02-25'), 2)
+print(dates)
+filled_in = np.array([np.arange(date, (date+d)) for date, d in zip(dates, np.diff(dates))]).reshape(-1)
+print(filled_in)
+# add the last day
+output = np.hstack([filled_in, dates[-1]])
+print (output)
+
+output:
+
+
+------generate a 2d matrix using strides, with a window length of 4 and strides of 2, like [[0,1,2,3], [2,3,4,5], [4,5,6,7]..]
+for i in range(11):
+    if i%2==0:
+        print(np.arange(i,i+4))
+
+output:
+[0 1 2 3]
+[2 3 4 5]
+[4 5 6 7]
+[6 7 8 9]
+[ 8  9 10 11]
+[10 11 12 13]
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+------
+
+
+output:
+
+
+

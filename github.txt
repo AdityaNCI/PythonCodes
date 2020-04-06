@@ -1,0 +1,881 @@
+https://github.com/zhiwehu/Python-programming-exercises/blob/master/100%2B%20Python%20challenging%20programming%20exercises.txt
+
+Basics:
+
+t = [1+1 for i in range(100)]
+output:
+[2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+
+text=[1,2,2,3,5,6,3,5,6]
+print(list(dict.fromkeys(text))) # remove duplicates from list text
+
+---> create dictionary, then assign list values to dictionary
+mylist=[1, 2, 3, 4, 5, 6]
+#mydict={}   --> define dictionary this way too
+mydict=dict()
+x=0
+for y in mylist:
+    mydict[x]=y
+    x=x+1
+print(mydict)
+for (k,v) in mydict.items():
+    print (v)  
+#----------------------------------------#
+Question:
+
+count and print the numbers of each character in a string input by console.
+input:
+abcdefgabc
+output:
+a,2
+c,2
+b,2
+e,1
+d,1
+g,1
+f,1
+
+dic = {}
+s=input()
+for s in s:
+    dic[s] = dic.get(s,0)+1
+print ('\n'.join(['%s,%s' % (k, v) for k, v in dic.items()]))
+
+#----------------------------------------#
+Input:
+New to Python or choosing between Python 2 and Python 3? Read Python 2 or Python 3.
+output:
+2:2
+3.:1
+3?:1
+New:1
+Python:5
+Read:1
+and:1
+between:1
+choosing:1
+or:2
+to:1
+
+freq = {}   # frequency of words in text
+line = input()
+for word in line.split(): # default of split is space
+    freq[word] = freq.get(word,0)+1
+#for i in sorted(freq):      # sorted print
+#    print('%s:%d'%(i,freq[i]))
+for w in words:             #unsorted way
+    print ("%s:%d" % (w,freq[w]))
+
+#----------------------------------------#
+Question 3
+output should be:
+{1: 1, 2: 4, 3: 9, 4: 16, 5: 25, 6: 36, 7: 49, 8: 64}
+
+n=int(input())
+d=dict()
+for i in range(1,n+1):
+    d[i]=i*i
+print (d)
+
+#-----------------------------------------------------------
+n = int(input("Please enter the number"))
+def sum(n):
+    total=0
+    i=0
+    while(i<n+1):
+        total=i+total
+        i=i+1
+    return total 
+number=sum(n)
+print ("The sum of all numbers till the number entered is: " + str(number))
+
+#---------tuple from list-------------------------------#
+Suppose the following input is supplied to the program:
+34,67,55,33,12,98
+Then, the output should be:
+['34', '67', '55', '33', '12', '98']
+('34', '67', '55', '33', '12', '98')
+
+values=input()
+l=values.split(",")
+t=tuple(l)
+print (l)
+print (t)
+
+#--------sorting via key using itemgetter-------------------------#
+input:
+Tom,19,80
+John,20,90
+Jony,17,91
+Jony,17,93
+Json,21,85
+output:
+[('John', '20', '90'), ('Jony', '17', '91'), ('Jony', '17', '93'), ('Json', '21', '85'), ('Tom', '19', '80')]
+
+from operator import itemgetter
+l = []
+while True:
+    s = input()
+    if not s:
+        break
+    l.append(tuple(s.split(",")))
+print (sorted(l, key=itemgetter(0,1,2)))
+
+#----------------------------------------#
+input:
+H1e2l3l4o5w6o7r8l9d
+output:
+Helloworld
+
+s=input()
+s = s[::2] #iterate list by 2 steps
+print (s)
+
+#----all permutations of list------------#
+import itertools
+print (list(itertools.permutations([1,2,3])))
+
+#----------------------------------------#
+print the list after removing the value 24 in [12,24,35,24,88,120,155].
+
+li = [12,24,35,24,88,120,155]
+li = [x for x in li if x!=24]
+#li.remove(24)
+#li.pop(1)
+#del li[1:3] #remove 3rd,4th index
+print (li)
+
+-------------reverse a sentence------------------------------------------
+def reverse(num):
+    new=[]
+    new=num.split(" ")
+    new=new[::-1]
+    return[new] 
+num=input()
+call=reverse(num)
+print (call)
+
+------------common elements of 2 lists---------------------------------
+set1=set([1,3,6,78,35,55])
+set2=set([12,24,35,24,88,120,155])
+li=set1 & set2
+li=list(li)
+print(li)
+
+#----------------------------------------#
+print the first 5 elements in the list.
+
+def printList():
+	li=list()
+	for i in range(1,21):
+		li.append(i**2)
+	print (li[:5])
+	#print (li[-5:])  ---> print last 5
+	#print (li[5:])   ---> print all except first 5
+	#print (tuple(li[-5:]))  ---> print tuple
+printList()
+
+#-----filter and lambda--------------------------------#
+li = [1,2,3,4,5,6,7,8,9,10]
+evenNumbers = list(filter(lambda x: x%2==0, li))
+print (evenNumbers)
+
+#-------map---------------------------------#
+li = [1,2,3,4,5,6,7,8,9,10]
+squaredNumbers = list(map(lambda x: x**2, li))
+print (squaredNumbers)
+
+#----------------------------------------#
+li = [1,2,3,4,5,6,7,8,9,10]
+evenNumbers = list(map(lambda x: x**2, filter(lambda x: x%2==0, li)))
+#evenNumbers = list(filter(lambda x: x%2==0, range(1,21)))
+#squaredNumbers = list(map(lambda x: x**2, range(1,21)))
+print (evenNumbers)
+output: [4, 16, 36, 64, 100]
+
+-------print the first and last element of list-------------------------
+def list_ends(a_list):
+    return [a_list[0], a_list[len(a_list)-1]]  
+num=(x for x in input().split(","))
+num1=[]
+for a in num:
+    num1.append(int(a))
+call=list_ends(num1)
+print(call)
+
+------------vowels in a string-----------------------------------------
+def getCount(inputStr):
+    num_vowels = 0
+    vowels=['a','e','i','o','u']
+    #stringlist=list(inputStr.split(" "))
+    stringlist=list(inputStr)
+    for a in stringlist:
+        if a in vowels:
+            num_vowels=num_vowels+1
+    return num_vowels
+inputStr=input()
+call=getCount(inputStr)
+print(call)
+or
+return sum(1 for let in inputStr if let in "aeiouAEIOU")
+
+#-----sorting words alphabetically-----------------------#
+
+Suppose the following input is supplied to the program:
+without,hello,bag,world
+Then, the output should be:
+bag,hello,without,world
+
+Solution:
+items=[x for x in input().split(',')]
+items.sort()
+#y.sort(reverse = True)     --> to sort in descending
+print(items)
+
+
+#----------capitalize every word of sentence-----------------------#
+lines = []
+while True:
+    s = input()
+    if s:
+        lines.append(s.upper())
+    else:
+        break;
+for sentence in lines:
+    print(sentence)
+#----------------------------------------#
+program to generate all sentences where 
+subject is in ["I", "You"] and 
+verb is in ["Play", "Love"] and 
+object is in ["Hockey","Football"]
+
+subjects=["I", "You"]
+verbs=["Play", "Love"]
+objects=["Hockey","Football"]
+for i in range(len(subjects)):
+    for j in range(len(verbs)):
+        for k in range(len(objects)):
+            sentence = "%s %s %s." % (subjects[i], verbs[j], objects[k])
+            print (sentence)
+
+#----------------------------------------#
+input:
+Hello world!
+output:
+UPPER CASE 1
+LOWER CASE 9
+s = input()
+d={"UPPER CASE":0, "LOWER CASE":0}
+for c in s:
+    if c.isupper():
+        d["UPPER CASE"]+=1
+    elif c.islower():
+        d["LOWER CASE"]+=1
+    else:
+        pass
+print ("UPPER CASE", d["UPPER CASE"])
+print ("LOWER CASE", d["LOWER CASE"])
+
+#---prints the words after removing all duplicate words and sorting them------------#
+s = input()
+words = [word for word in s.split(" ")]
+print (" ".join(sorted(list(set(words)))))
+
+
+-----------reverse the string to find out if palindrome----------------
+wrd=input("Please enter a word")
+wrd=str(wrd)
+rvs=wrd[::-1]
+print(rvs)
+if wrd == rvs:
+    print("This word is a palindrome")
+else:
+    print("This word is not a palindrome")
+
+#---comma separated 4 digit binary numbers as its input and then check whether they are divisible by 5 or not
+#0100,0011,1010,1001
+value = []
+items=[x for x in input().split(',')]
+for p in items:
+    intp = int(p,2) # convert binary number to integer
+    if not intp%5:
+        value.append(p)
+print (','.join(value))
+
+#----------------------------------------#
+input:
+hello world! 123
+output:
+LETTERS 10
+DIGITS 3
+
+s = input()
+d={"DIGITS":0, "LETTERS":0}
+for c in s:
+    if c.isdigit():
+        d["DIGITS"]+=1
+    elif c.isalpha():
+        d["LETTERS"]+=1
+    else:
+        pass
+print ("LETTERS", d["LETTERS"])
+print ("DIGITS", d["DIGITS"])
+
+#----each digit of the number is an even number-------------#
+values = []
+for i in range(1000, 3001):
+    s = str(i)
+    if (int(s[0])%2==0) and (int(s[1])%2==0) and (int(s[2])%2==0) and (int(s[3])%2==0):
+        values.append(s)
+print (",".join(values))
+
+#----------------------------------------#
+When 35 heads and 94 legs, How many rabbits and chickens do we have?
+
+def solve(numheads,numlegs):
+    ns='No solutions!'
+    for i in range(numheads+1):
+        j=numheads-i
+        if 2*i+4*j==numlegs:
+            return i,j
+    return ns,ns
+
+numheads=35
+numlegs=94
+solutions=solve(numheads,numlegs)
+print (solutions)
+
+#----------------------------------------#
+input:
+9
+output:9+99+999+9999
+11106
+
+a = input()
+n1 = int("%s"%a)    # %d for integers
+n2 = int("%s%s"%(a,a))
+n3 = int("%s%s%s"%(a,a,a))
+n4 = int("%s%s%s%s"%(a,a,a,a))
+print (n1+n2+n3+n4)
+
+#---------odd numbers-------------------------------#
+input:
+1,2,3,4,5,6,7,8,9
+output:
+1,3,5,7,9
+
+numbers = [x for x in input().split(",") if int(x)%2!=0]
+print (",".join(numbers))
+
+#---line after line input-----------------------------#
+Input(D deposit, W Withdrawl):
+D 300
+D 300
+W 200
+D 100
+output:
+500
+
+netAmount = 0
+while True:
+    s = input()
+    if not s:
+        break
+    values = s.split(" ")
+    operation = values[0]
+    amount = int(values[1])
+    if operation=="D":
+        netAmount+=amount
+    elif operation=="W":
+        netAmount-=amount
+    else:
+        pass
+print (netAmount)
+
+#-----compute 1/2+2/3+3/4+...+n/n+1-----------------------------------#
+input: 5
+output: 3.55
+
+n=int(input())
+sum=0.0
+for i in range(1,n+1):
+    sum += float(float(i)/(i+1))
+print (sum)
+
+#----------------------------------------#
+f(n)=f(n-1)+100 when n>0
+and f(0)=1
+
+input: 5
+output:500
+
+def f(n):
+    if n==0:
+        return 0
+    else:
+        return f(n-1)+100
+n=int(input())
+print (f(n))
+
+#----assert------------------------------------#
+#if condition returns True, then nothing happens:
+#if condition returns False, AssertionError is raised:
+
+li = [2,4,6,8]
+for i in li:
+    assert i%2==0
+
+#------eval function----------------------------------#
+input:35+3
+output:38
+
+expression = input()
+print (eval(expression))
+
+#--------------numbers divisible by 7, not 5
+between 2000 and 3200 (both included).
+l=[]
+for i in range(2000, 3201):
+    if (i%7==0) and (i%5!=0):
+        l.append(str(i))
+
+print (','.join(l)) or
+print(l)
+
+#----------square root------------------------------#
+import math
+c=50
+h=30
+value = []
+items=[x for x in input().split(',')]
+for d in items:
+    value.append(str(int(round(math.sqrt(2*c*float(d)/h)))))
+
+print (','.join(value))
+
+#----------------------------------------#
+A robot moves in a plane starting from the original point (0,0). 
+The robot can move toward UP, DOWN, LEFT and RIGHT with a given steps. 
+The trace of robot movement is shown as the following:
+UP 5
+DOWN 3
+LEFT 3
+RIGHT 2
+бн
+The numbers after the direction are steps. Please write a program to compute the 
+distance from current position after a sequence of movement and original point. 
+If the distance is a float, then just print the nearest integer.
+Example:
+If the following tuples are given as input to the program:
+UP 5
+DOWN 3
+LEFT 3
+RIGHT 2
+Then, the output of the program should be:
+2
+
+import math
+pos = [0,0]
+while True:
+    s = input()
+    if not s:
+        break
+    movement = s.split(" ")
+    direction = movement[0]
+    steps = int(movement[1])
+    if direction=="UP":
+        pos[0]+=steps
+    elif direction=="DOWN":
+        pos[0]-=steps
+    elif direction=="LEFT":
+        pos[1]-=steps
+    elif direction=="RIGHT":
+        pos[1]+=steps
+    else:
+        pass
+
+print int(round(math.sqrt(pos[1]**2+pos[0]**2)))
+
+---------prime or not---------------------------------------------------
+def primenum(num):
+    i=2
+    flag=0
+    while i<num:
+        if num%i==0:
+            flag=1
+        i=i+1
+    if (flag==0 and num !=1) or num==2:
+        print("prime")
+    elif flag!=0:
+        print("not prime")
+    elif num==1:
+        print("neither composite not prime")
+    return 0    
+num=int(input())    
+call=primenum(num)  
+    
+-----fibonacci--------------------------------------------------
+def fibo(x):
+    if x==0:
+        return 0
+    elif x==1:
+        return 1
+    else:
+        return (fibo(x-1)+fibo(x-2))
+x=int(input())
+values=[(fibo(x)) for x in range(0, x)]
+print(values)
+
+
+#-----------factorial----------------------------------
+def fact(x):
+    if x == 0:
+        return 1
+    return x * fact(x - 1)      
+
+x=int(input())
+print (fact(x))
+#----------------------------------------#
+Please raise a RuntimeError exception.
+
+raise RuntimeError('something wrong')
+
+-------------password generator----------------------------------------
+import random
+
+s = "abcdefghijklmnopqrstuvwxyz01234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()?"
+passlen = 8
+p =  "".join(random.sample(s,passlen ))
+print (p)
+or
+import string
+import random
+def pw_gen(size = 8, chars=string.ascii_letters + string.digits + string.punctuation):
+    return ''.join(random.choice(chars) for _ in range(size))
+call=pw_gen()
+print(call)
+
+#----------------------------------------#
+input:
+john@google.com
+output:
+john
+
+import re
+emailAddress = input()
+pat = "(\w+)@((\w+\.)+(com))"
+r2 = re.match(pat,emailAddress)
+print (r2.group(1))
+
+#----------------------------------------#
+input:
+2 cats and 3 dogs.
+output:
+['2', '3']
+
+import re
+s = input()
+print (re.findall("\d+",s))
+
+#----compress and decompress------------------------------------#
+import zlib
+s = 'hello world!hello world!hello world!hello world!'
+t = zlib.compress(bytes(s,'utf-8'))
+print (t)
+print (zlib.decompress(t))
+
+#----------------------------------------#
+Please write a program to print the running time of execution of "1+1" for 100 times.
+
+from timeit import Timer
+t = Timer("for i in range(100):1+1")
+print (t.timeit())
+
+#----shuffle list--------------------------------#
+from random import shuffle
+li = [3,6,7,8]
+random.shuffle(li)
+print (li)
+
+#-------enumerate------------------------#
+print the list after removing the 0th, 2nd, 4th,6th numbers in [12,24,35,70,88,120,155].
+
+li = [12,24,35,70,88,120,155]
+li = [x for (i,x) in enumerate(li) if i%2!=0]
+print (li)
+
+#---Generator and Yield----------------------#
+generator which can iterate the numbers, which are divisible by 7, 
+between a given range 0 and n.
+def putNumbers(n):
+    i = 0
+    while i<n:
+        if i%7==0:
+            yield i
+        i=i+1    
+for i in putNumbers(100):
+    print (i)
+
+#---doubts in this code-------------------------------------#
+
+criteria for checking the password:
+1. At least 1 letter between [a-z]
+2. At least 1 number between [0-9]
+1. At least 1 letter between [A-Z]
+3. At least 1 character from [$#@]
+4. Minimum length of transaction password: 6
+5. Maximum length of transaction password: 12
+input:
+ABd1234@1,a F1#,2w3E*,2We3345
+output:
+ABd1234@1
+
+import re
+value = []
+items=[x for x in input().split(',')]
+for p in items:
+    if len(p)<6 or len(p)>12:
+        continue
+    else:
+        pass
+    if not re.search("[a-z]",p):
+        continue
+    elif not re.search("[0-9]",p):
+        continue
+    elif not re.search("[A-Z]",p):
+        continue
+    elif not re.search("[$#@]",p):
+        continue
+    elif re.search("\s",p):
+        continue
+    else:
+        pass
+    value.append(p)
+print (",".join(value))
+
+#----------------------------------------#
+Please write a binary search function which searches an item in a sorted list. 
+The function should return the index of element to be searched in the list.
+
+import math
+def bin_search(li, element):
+    bottom = 0
+    top = len(li)-1
+    index = -1
+    while top>=bottom and index==-1:
+        mid = int(math.floor((top+bottom)/2.0))
+        if li[mid]==element:
+            index = mid
+        elif li[mid]>element:
+            top = mid-1
+        else:
+            bottom = mid+1
+    if index!=-1:
+        return index
+    else:
+        return "not found"
+li=[2,5,7,9,11,17,222]
+print (bin_search(li,11))
+print (bin_search(li,12))
+
+#----------------------------------------#
+Define a class, which has a class parameter and has a same instance parameter.
+Hints:
+    Define an instance parameter, need add it in __init__ method
+    You can init a object with construct parameter or set the value later
+Solution:
+class Person:
+    # Define the class parameter "name"
+    name = "Person"
+    
+    def __init__(self, name = None):
+        # self.name is the instance parameter
+        self.name = name
+
+jeffrey = Person("Jeffrey")
+print "%s name is %s" % (Person.name, jeffrey.name)
+
+nico = Person()
+nico.name = "Nico"
+print "%s name is %s" % (Person.name, nico.name)
+
+#----------------------------------------#
+class American(object):
+    @staticmethod
+    def printNationality():
+        print "America"
+
+anAmerican = American()
+anAmerican.printNationality()
+American.printNationality()
+
+#----------------------------------------#
+Define a class which has at least two methods:
+getString: to get a string from console input
+printString: to print the string in upper case.
+class InputOutString(object):
+    def __init__(self):
+        self.s = ""
+
+    def getString(self):
+        self.s = input()
+
+    def printString(self):
+        print (self.s.upper())
+
+strObj = InputOutString()
+strObj.getString()
+strObj.printString()
+
+#----------------------------------------#
+class Person and its two child classes: Male and Female. 
+All classes have a method "getGender"
+
+class Person(object):
+    def getGender( self ):
+        return "Unknown"
+
+class Male( Person ):
+    def getGender( self ):
+        return "Male"
+
+class Female( Person ):
+    def getGender( self ):
+        return "Female"
+
+aMale = Male()
+aFemale= Female()
+print (aMale.getGender())
+print (aFemale.getGender())
+
+#----------------------------------------#
+class Circle(object):
+    def __init__(self, r):
+        self.radius = r
+
+    def area(self):
+        return self.radius**2*3.14
+
+aCircle = Circle(2)
+print (aCircle.area())
+
+#----------------------------------------#
+def throws():
+    return 5/0
+try:
+    throws()
+except ZeroDivisionError:
+    print ("division by zero!")
+except Exception:
+    print ('Caught an exception')
+finally:
+    print ('In finally block for cleanup')
+
+#----------------------------------------#
+Define a custom exception class which takes a string message as attribute.
+
+Hints:
+
+To define a custom exception, we need to define a class inherited from Exception.
+
+Solution:
+
+class MyError(Exception):
+    """My own exception class
+
+    Attributes:
+        msg  -- explanation of the error
+    """
+
+    def __init__(self, msg):
+        self.msg = msg
+
+error = MyError("something wrong")
+
+#-----unicode-----------------------------#
+print("here is your checkmark: " + u'\u2713')
+
+#----------------------------------------#
+Write a program to read an ASCII string and to convert it to a unicode string encoded 
+by utf-8.
+
+Hints:
+
+Use unicode() function to convert.
+
+Solution:
+
+s = input()
+u = unicode( s ,"utf-8")
+print (u)
+
+#----------------------------------------#
+Question:
+
+Write a special comment to indicate a Python source code file is in unicode.
+
+Hints:
+
+Solution:
+
+# -*- coding: utf-8 -*-
+
+#----------------------------------------#
+generate a 3*5*8 3D array whose each element is 0.
+
+array = [[[0 for col in range(8)] for col in range(5)] for row in range(3)]
+print (array)
+
+#----------------------------------------#
+#Question 7
+Level 2
+
+Question:
+Write a program which takes 2 digits, X,Y as input and generates a 2-dimensional array. The element value in the i-th row and j-th column of the array should be i*j.
+Note: i=0,1.., X-1; j=0,1,бнY-1.
+Example
+Suppose the following inputs are given to the program:
+3,5
+Then, the output of the program should be:
+[[0, 0, 0, 0, 0], [0, 1, 2, 3, 4], [0, 2, 4, 6, 8]] 
+
+Hints:
+Note: In case of input data being supplied to the question, it should be assumed to be a console input in a comma-separated form.
+
+Solution:
+input_str = raw_input()
+dimensions=[int(x) for x in input_str.split(',')]
+rowNum=dimensions[0]
+colNum=dimensions[1]
+multilist = [[0 for col in range(colNum)] for row in range(rowNum)]
+
+for row in range(rowNum):
+    for col in range(colNum):
+        multilist[row][col]= row*col
+
+print multilist
+
+#----------------------------------------#
+
+Question:
+    Python has many built-in functions, and if you do not know how to use it, you can read document online or find some books. But Python has a built-in document function for every built-in functions.
+    Please write a program to print some Python built-in functions documents, such as abs(), int(), raw_input()
+    And add document for your own function
+    
+Hints:
+    The built-in document method is __doc__
+
+Solution:
+print abs.__doc__
+print int.__doc__
+print raw_input.__doc__
+
+def square(num):
+    '''Return the square value of the input number.
+    
+    The input number must be integer.
+    '''
+    return num ** 2
+
+print square(2)
+print square.__doc__

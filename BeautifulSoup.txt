@@ -1,0 +1,405 @@
+$ pip install requests
+$ pip install beautifulsoup4
+-------------names of all presidents from wikipidia page
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://en.wikipedia.org/wiki/List_of_Presidents_of_the_United_States"
+page = requests.get(url)
+#print(page.content)
+soup = BeautifulSoup(page.content, 'html.parser')
+tb = soup.find('table', class_='wikitable')
+
+for link in tb.find_all('b'):
+    name = link.find('a')
+    print(name.get_text('title'))
+
+output:
+George Washington
+John Adams
+Thomas Jefferson
+James Madison
+James Monroe......
+
+-------------Rohit Sharma data from cricbuzz
+import requests
+from bs4 import BeautifulSoup
+
+url = "https://www.cricbuzz.com/profiles/576/rohit-sharma"
+page = requests.get(url)
+#print(page.content)
+
+soup = BeautifulSoup(page.content, 'html.parser')
+#print(soup)
+tb = soup.find('table', class_='table cb-col-100 cb-plyr-thead')
+#print(tb)
+
+# for link in tb.find_all('tbody'):
+#     name = (link.find('tr'))
+#     print(name.get_text(''))
+
+# for link in tb.find_all('tr'):
+#     print(link.get_text(''))
+    
+tb2=soup.find('div',class_='cb-hm-rght cb-player-bio')
+for link in tb2.find_all('tr'):
+    print(link.get_text(''))
+for link in tb2.find_all('br'):
+    print(link.get_text(''))
+
+output:
+ M Inn NO Runs HS Avg BF SR 100 200 50 4s 6s 
+ Test 30 51 7 2114 212 48.05 3564 59.32 6 1 10 213 51 
+ ODI 218 211 32 8686 264 48.53 9806 88.58 27 3 42 770 232 
+ T20I 98 90 14 2443 118 32.14 1789 136.56 4 0 17 217 109 
+ IPL 188 183 28 4898 109 31.6 3744 130.82 1 0 36 431 194 
+  M Inn B Runs Wkts BBI BBM Econ Avg SR 5W 10W 
+ Test 30 14 370 216 2 1/26 1/35 3.5 108.0 185.0 0 0 
+ ODI 218 38 593 515 8 2/27 2/27 5.21 64.38 74.12 0 0 
+ T20I 98 9 68 113 1 1/22 1/22 9.97 113.0 68.0 0 0 
+ IPL 188 30 332 440 15 4/6 4/6 7.95 29.33 22.13 0 0 
+
+ Harsha Bhogle spoke of whispers in the domestic circuit; of.....
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
+-------------
+
+
+output:
+
+
